@@ -28,7 +28,7 @@ var port = process.env.PORT || 3001;
 
 app.use(require('./router'));
 app.use(require('./routes/authentication.js'));
-app.use(require('./routes/linkUserAccount'));
+//app.use(require('./routes/linkUserAccount'));
 
 
 

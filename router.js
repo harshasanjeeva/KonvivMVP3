@@ -63,17 +63,9 @@ app.get('/list', function(req, res){
     connection.connect(function(err) {
         if (err) throw err;
         console.log("Connected!");
-     //  connection.query("INSERT INTO UserTestTable (id, username, password) VALUES ('45', 'Harsha','123456789')", function (err, result, fields) {
-     //    if (err) throw err;
-     //     console.log("query successful");
-     //     console.log(result);
-     //     res.status(200).send({"sucesss":true, "result":result});
-     // });
      connection.query("SELECT * FROM UserTestTable", (err, res, fields) => {
        console.log('result is ', res);
-       res.status(200).send({"sucesss":true, "result":result1});
+       res.status(200).send({"sucesss":true, "result":res});
      })
      });
-     console.log("this is the JSON data that we are sending");
-  
 });
