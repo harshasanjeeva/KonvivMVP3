@@ -19,7 +19,10 @@ var app = module.exports = express.Router();
     database:"testSchema"
   });
 
-
+  app.get('/', function (req, res) {
+    // res.status(200).send({"sucesss": true, "result": "hi"});
+        res.status(200).send({"success": true});
+});
 
   app.get('/accounts', function (req, res) {
     // res.status(200).send({"sucesss": true, "result": "hi"});
@@ -60,12 +63,8 @@ app.post('/notifications', function(req, res) {
     });
 });
 app.get('/list', function(req, res){
-    connection.connect(function(err) {
-        if (err) throw err;
-        console.log("Connected!");
-     connection.query("SELECT * FROM UserTestTable", (err, res, fields) => {
-       console.log('result is ', res);
-       res.status(200).send({"sucesss":true, "result":res});
-     })
+     connection.query("SELECT * FROM UserTestTable", (err, result, fields) => {
+       console.log('result is ', result);
+       res.status(200).send({"sucesss":true, "result":result});
      });
 });
