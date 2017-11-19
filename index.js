@@ -6,7 +6,7 @@ errorhandler = require('errorhandler'),
 bodyParser = require('body-parser'),
 helmet = require('helmet'),
 envvar = require('envvar'),
-PythonShell = require('python-shell'),
+//PythonShell = require('python-shell'),
 plaid = require('plaid');
 
 const app = express();
