@@ -1,0 +1,6 @@
+,Category,Amount,bucket,bucket_fill,rem_income
+0,Rent,2000,1500,1500,500
+2,Bills,500,100,100,400
+4,Shopping,400,150,150,250
+1,Food,250,50,50,200
+5,Others,250,150,150.0,100.0
