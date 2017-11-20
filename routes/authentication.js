@@ -4,6 +4,8 @@ const bodyParser = require('body-parser');
 const plaid = require('plaid');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const tokenKey = require('../config/keys');
 
 
 

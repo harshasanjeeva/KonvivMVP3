@@ -44,7 +44,7 @@ const connection = mysql.createConnection({
 
 
 
-  app.get('/link', function(request, response, next) {
+  app.get('/linkaccount', function(request, response, next) {
     console.log("app loading...");
     response.render('plaid.ejs', {
         PLAID_PUBLIC_KEY: PLAID_PUBLIC_KEY,
