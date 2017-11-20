@@ -24,8 +24,11 @@ const app = module.exports = express.Router();
 
 
 app.post('/postTest', function(req, res){
-     connection.connect(function(err) {
+  console.log(tokenKey);   
+  connection.connect(function(err) {
+
        bcrypt.genSalt(10, function(err, salt) {
+
          bcrypt.hash(req.body.password, salt, function(err, hash) {
              var newUser = {
                email: req.body.email,
