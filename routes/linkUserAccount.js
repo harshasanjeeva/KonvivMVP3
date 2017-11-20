@@ -98,7 +98,7 @@ app.get('/accounts', function(request, response, next) {
 
 app.post('/goback', function (request, response) {
   console.log("going to google.com");
-  return response.redirect('http://localhost:8100');
+  return response.redirect('http://localhost:8100/#/menu/tabs/buckets/home/spending/main');
 });
 
 
