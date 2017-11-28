@@ -184,20 +184,20 @@ app.post('/transactions', function(request, response, next) {
             }
           console.log(values);
 
-        //   connection.connect(function(err) {
-        //       if (err) throw err;
-        //     console.log("Connected!");
-        //     connection.query('INSERT INTO transactionTable (account_id, amount, date, name, category_id, category ) VALUES ?', [values], function(err,result) {
-        //       if (err) throw err;
-        //       console.log("successful for insert for transaction");
-        //       });
+          connection.connect(function(err) {
+              if (err) throw err;
+            console.log("Connected!");
+            connection.query('INSERT INTO transactionTable (account_id, amount, date, name, category_id, category ) VALUES ?', [values], function(err,result) {
+              if (err) throw err;
+              console.log("successful for insert for transaction");
+              });
           
-        //   connection.query("SELECT * FROM transactionTable", function (err, result) {
-        //     if (err) throw err;
-        //      console.log("query successful");
-        //      console.log(result);
-        //  });
-        //  });
+          connection.query("SELECT * FROM transactionTable", function (err, result) {
+            if (err) throw err;
+             console.log("query successful");
+             console.log(result);
+         });
+         });
           //database connnection end
 
   });

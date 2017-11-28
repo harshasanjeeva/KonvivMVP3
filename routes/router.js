@@ -6,7 +6,7 @@ var plaid = require('plaid');
 var mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const tokenKey = require('./config/keys');
+const tokenKey = require('../config/keys');
 
 
 var app = module.exports = express.Router();
@@ -43,19 +43,19 @@ app.post('/register', function(req, res){
 
                             var userData = [newUser];
                             var values = [];
-
+                            var user_id =3;
                             for (var i = 0; i < 1; i++) {
                                 console.log(userData)
-                                values.push([, userData[i].email, userData[i].password])
+                                values.push([user_id, userData[i].email, userData[i].password])
                             }
 
                             if (err) throw err;
-                            connection.query("INSERT INTO UserTestTable (id, username, password) VALUES ?", [values], function (err, result, fields) {
+                            connection.query("INSERT INTO UserTable (id, username, password) VALUES ?", [values], function (err, result, fields) {
                                 if (err) throw err;
                                 console.log(result);
                                 res.status(200).send({"success":true, "result":result});
                             });
-                            connection.query("SELECT * FROM UserTestTable", (err, res, fields) => {
+                            connection.query("SELECT * FROM UserTable", (err, res, fields) => {
                                 console.log('result is ', res);
                         })
 

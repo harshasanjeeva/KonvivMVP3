@@ -6,7 +6,7 @@ errorhandler = require('errorhandler'),
 bodyParser = require('body-parser'),
 helmet = require('helmet'),
 envvar = require('envvar'),
-//PythonShell = require('python-shell'),
+PythonShell = require('python-shell'),
 plaid = require('plaid');
 
 const app = express();
@@ -66,10 +66,10 @@ app.use(require('./routes/linkUserAccount'));
 
 //working-------------------------------
 // PythonShell.run('bucket.py');
-// var myPythonScript = "bucket.py";
-// var pythonExecutable = "python";
-// const spawn = require('child_process').spawn;
-// const scriptExecution = spawn(pythonExecutable, [myPythonScript]);
+var myPythonScript = "bucket.py";
+var pythonExecutable = "python";
+const spawn = require('child_process').spawn;
+const scriptExecution = spawn(pythonExecutable, [myPythonScript]);
 
 http.createServer(app).listen(port, function (err) {
 console.log('listening in http://localhost:' + port);
