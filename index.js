@@ -62,14 +62,32 @@ app.use(require('./routes/linkUserAccount'));
 // };
 
 
-
+var user_id = 10;
 
 //working-------------------------------
 // PythonShell.run('bucket.py');
-var myPythonScript = "bucket.py";
-var pythonExecutable = "python";
-const spawn = require('child_process').spawn;
-const scriptExecution = spawn(pythonExecutable, [myPythonScript]);
+
+
+// var myPythonScript = "test.py";
+// var pythonExecutable = "python";
+// const spawn = require('child_process').spawn;
+// const scriptExecution = spawn(pythonExecutable, [myPythonScript,"data1"]);
+// scriptExecution.stdout.on("data", function (data) {
+//     res.send(data.toString());
+//   });
+
+var options = {
+  args: ["hi",user_id]
+};
+
+PythonShell.run('bucket-new.py', options, function (err, results) {
+  //if (err) throw err;
+  // results is an array consisting of messages collected during execution
+  console.log('results: %j', results);
+});
+
+
+
 
 http.createServer(app).listen(port, function (err) {
 console.log('listening in http://localhost:' + port);

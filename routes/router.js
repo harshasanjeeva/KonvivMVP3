@@ -43,7 +43,7 @@ app.post('/register', function(req, res){
 
                             var userData = [newUser];
                             var values = [];
-                            var user_id =3;
+                            var user_id =5;
                             for (var i = 0; i < 1; i++) {
                                 console.log(userData)
                                 values.push([user_id, userData[i].email, userData[i].password])

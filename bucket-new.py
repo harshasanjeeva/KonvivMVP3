@@ -10,10 +10,7 @@ import mysql.connector
 from sqlalchemy import create_engine
 import pymysql as pymysql 
 
-engine = create_engine("mysql+mysqlconnector://root:varshaA1!@konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.com/testSchema"
-                       .format(user="root",
-                               pw="varshaA1!",
-                               db="testSchema"))
+engine = create_engine('mysql+mysqlconnector://harsha:varshaA1!@konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.com:3306/testSchema',echo=False)
 db = MySQLdb.connect(host="konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.com",    # your host, usually localhost
                      user="harsha",         # your username
                      password="varshaA1!",  # your password
@@ -35,6 +32,7 @@ df = pd.read_sql("SELECT * FROM transactionTable", con=db)
 
 # db.close()
 
+user_id = sys.argv[2]
 
 data=[['Rent',1500],['Food',50],['Bills',100],['Car',100],['Shopping',150],['Others','150']]
 warnings.filterwarnings('ignore')
@@ -357,7 +355,7 @@ if line!=2:
         # Category for the Making all the dataframes into one
         frames=[ df_rent,df_bills,df_shop,df_food,df_other]
         result = pd.concat(frames);
-        result.loc[:,'id'] = 1
+        result.loc[:,'id'] = user_id
         print(result);
 
 if line==2:
@@ -377,14 +375,14 @@ result.to_csv('bucket1.csv', sep=',')
 print("your income is good");
 
 data=[[2500,'Rent',200,100,1000,10]]
-df1_db = pd.DataFrame(data,columns=['Category','Amount']);
+df1_db = pd.DataFrame(data,columns=['Category','Amount','bucket','bucket_fill','rem_income','id']);
 
 # # print all the first cell of all the rows
 # for row in cur.fetchall():
 #     print("the data - ",row[3] ,"-" , row[1],"-", row[2]," ", row[4]," ", row[0])
 
 # df = pd.read_sql("SELECT * FROM transactionTable", con=db)
-# result.to_sql(name='bucketFillTest',con=engine,if_exists='replace',index=False) 
-df1_db.to_sql(con=conn, name='bucketFillTest', if_exists='replace', flavor=None, index=False, chunksize=10000)
+result.to_sql(con=engine, name='bucketFillTest', if_exists='append',flavor=None, index=False, chunksize=10000)
+# df1_db.to_sql(con=conn, name='bucketFillTest', if_exists='replace', flavor='mysql', index=False, chunksize=10000)
 conn.close()
 db.close()
