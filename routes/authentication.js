@@ -26,89 +26,6 @@ const app = module.exports = express.Router();
 
 var user_id;
 
-// app.post('/register', function(req, res){
-//   console.log(tokenKey);
-//   connection.connect(function(err) {
-//
-//        bcrypt.genSalt(10, function(err, salt) {
-//
-//          bcrypt.hash(req.body.password, salt, function(err, hash) {
-//              var newUser = {
-//                email: req.body.email,
-//                password: hash
-//              }
-//
-//              var userData = [newUser];
-//              var values = [];
-//
-//              user_id = Math.floor(Math.random() * 10000);
-//              for (var i = 0; i < 1; i++) {
-//                console.log(userData)
-//                values.push([user_id, userData[i].email, userData[i].password])
-//              }
-//
-//              if (err) throw err;
-//              connection.query("INSERT INTO UserTable (id, username, password) VALUES ?", [values], function (err, result, fields) {
-//                if (err) throw err;
-//                 console.log("query successful");
-//                 console.log(result);
-//                 res.status(200).send({"sucesss":true, "result":result, "user_id":user_id});
-//             });
-//             connection.query("SELECT * FROM UserTable", (err, res, fields) => {
-//               console.log('result is ', res);
-//             })
-//
-//            });
-//        });
-//       });
-//       console.log("this is the JSON data that we are sending");
-// });
-
-// app.post('/register', function(req, res){
-//     let email = req.body.email;
-//     connection.connect(function(err) {
-//         connection.query("SELECT * FROM UserTable WHERE username = ? ", [email], (err, result, fields) => {
-//
-//             if(result)  {
-//                 if(!result[0]) {
-//                     bcrypt.genSalt(10, function(err, salt) {
-//                         bcrypt.hash(req.body.password, salt, function(err, hash) {
-//                             var newUser = {
-//                                 email: req.body.email,
-//                                 password: hash
-//                             }
-//
-//                             var userData = [newUser];
-//                             var values = [];
-//                             user_id = Math.floor(Math.random() * 10000);
-//
-//                             for (var i = 0; i < 1; i++) {
-//                                 console.log(userData)
-//                                 values.push([user_id, userData[i].email, userData[i].password])
-//                             }
-//
-//                             if (err) throw err;
-//                             connection.query("INSERT INTO UserTable (id, username, password) VALUES ?", [values], function (err, result, fields) {
-//                                 if (err) throw err;
-//                                 console.log("****************",result);
-//                                 res.status(200).send({"success":true, "result":result});
-//                             });
-//                             connection.query("SELECT * FROM UserTable", (err, res, fields) => {
-//                                 console.log('result is ', res);
-//                         })
-//
-//                         });
-//                     });
-//                 }
-//                 else if(result[0].username === email) {
-//                     console.log(">>>>>>>>>>>>>>>. we are getting the error")
-//                     res.send({success: false})
-//                 }
-//             }
-//         })
-//     });
-// });
-
 app.post('/register', function(req, res){
     console.log(tokenKey);
     connection.connect(function(err) {
@@ -167,15 +84,15 @@ app.post('/login', function(req, res) {
              console.log('I am hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ')
              // user_id= 4844;
              console.log('here')
-             // var options = {
-             //     args: ["hi",user_id]
-             // };
-             //
-             // PythonShell.run('bucket-new.py', options, function (err, results) {
-             //     //if (err) throw err;
-             //     // results is an array consisting of messages collected during execution
-             //     console.log('results: %j', results);
-             // });
+             var options = {
+                 args: ["hi",user_id]
+             };
+             
+             PythonShell.run('bucket-new.py', options, function (err, results) {
+                 //if (err) throw err;
+                 // results is an array consisting of messages collected during execution
+                 console.log('results: %j', results);
+             });
             return res.send({"success":true, "login":'yes', "user_id":user_id});
          }
          else {

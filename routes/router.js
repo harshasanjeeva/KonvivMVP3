@@ -29,45 +29,6 @@ var app = module.exports = express.Router();
 
 var user_id;
 
-
-// app.post('/login', function(req, res) {
-//     connection.connect(function(err) {
-//         let email = req.body.email;
-//         let password = req.body.password;
-//         user_id = req.body.user_id;
-
-//         connection.query("SELECT * FROM UserTable WHERE username = ? ", [email], function(error, results, fields) {
-//             if (results[0].password) {
-//                 bcrypt.compare(req.body.password, results[0].password, function(err, result) {
-//                     const token = jwt.sign({email}, tokenKey.jwtSecret);
-//                     if(result) {
-
-//                         var options = {
-//                             args: ["hi",user_id]
-//                         };
-
-//                         PythonShell.run('bucket-new.py', options, function (err, results) {
-//                             //if (err) throw err;
-//                             // results is an array consisting of messages collected during execution
-//                             console.log('results: %j', results);
-//                         });
-
-//                         return res.send(
-//                             {
-//                                 "sucesss":true, "login":'yes',
-//                                 token: token
-//                             });
-//                     }
-//                     else {
-//                         console.log('catch all happens?')
-//                         return res.status(400).send();
-//                     }
-//                 })
-//             }
-//         });
-//     });
-// });
-
 app.get('/accounts/:user_id', function (req, res) {
     user_id = req.params.user_id;
     // res.status(200).send({"sucesss": true, "result": "hi"});
