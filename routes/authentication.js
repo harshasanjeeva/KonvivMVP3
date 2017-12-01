@@ -176,7 +176,7 @@ app.post('/login', function(req, res) {
              //     // results is an array consisting of messages collected during execution
              //     console.log('results: %j', results);
              // });
-            return res.send({"success":true, "login":'yes'});
+            return res.send({"success":true, "login":'yes', "user_id":user_id});
          }
          else {
            console.log('catch all happens?')
