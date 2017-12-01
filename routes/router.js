@@ -96,16 +96,17 @@ app.get('/transactions/:user_id', function(req, res){
     user_id = req.params.user_id;
     console.log("node new master transaction/:user_id user id: ", user_id);
 
-    connection.query("SELECT * FROM transactionsTable WHERE user_id = 6812",(err, result, fields) => {
-        console.log('transaction result is ', result);
+    connection.query("SELECT * FROM transactionsTable WHERE user_id = ?", [user_id], (err, result, fields) => {
+        // console.log('transaction result is ', result);
     res.status(200).send({"sucesss":true, "result":result});
 });
 });
 app.get('/buckets/:user_id', function(req, res) {
     user_id = req.params.user_id;
-    connection.query("SELECT * FROM bucketsTable WHERE user_id = ?", [user_id], function(err, result, fields) {
+    // console.log("node-new buckets user id: ", user_id);
+    connection.query("SELECT * FROM bucketFillTest WHERE id = ?", [user_id], function(err, result, fields) {
         if (err) throw err;
-        // console.log(result);
+        // console.log("node-new buckets result: ", result);
         res.status(200).send({"success": true, "result": result});
     });
 });
