@@ -153,37 +153,36 @@ app.post('/login', function(req, res) {
     var password = req.body.password;
 
     connection.query("SELECT * FROM UserTable WHERE username = ? ", [email], function(error, results, fields) {
-      console.log('and here')
-      console.log('>>>>>>>>>>>>>>>> ', results)
-      if (results[0].password) {
-        bcrypt.compare(req.body.password, results[0].password, function(err, result) {
-         if(result) {
-           console.log('result is good', results[0].id);
-             user_id = results[0].id;
+      console.log('and here');
+      console.log('>>>>>>>>>>>>>>>> ', results);
 
-             console.log("authentication.js login user id: ", user_id);
-
-
-             console.log('I am hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ')
-             // user_id= 4844;
-             console.log('here')
-             // var options = {
-             //     args: ["hi",user_id]
-             // };
-             //
-             // PythonShell.run('bucket-new.py', options, function (err, results) {
-             //     //if (err) throw err;
-             //     // results is an array consisting of messages collected during execution
-             //     console.log('results: %j', results);
-             // });
-            return res.send({"success":true, "login":'yes', "user_id":user_id});
-         }
-         else {
-           console.log('catch all happens?')
-           return res.status(400).send();
-         }
-       })
+      if (!results || results === null) {
+          res.send({"success": false, "login":'no'});
       }
+      else if (results[0]) {
+          let pass = results[0].password;
+          if (pass !== undefined && pass !== null) {
+              bcrypt.compare(req.body.password, results[0].password, function(err, result) {
+                  if (result) {
+                      user_id = results[0].id;
+                      // var options = {
+                      //     args: ["hi", user_id]
+                      // };
+                      //
+                      // PythonShell.run('bucket-new.py', options, function (err, results) {
+                      //     //if (err) throw err;
+                      //     // results is an array consisting of messages collected during execution
+                      //     // console.log('results: %j', results);
+                      // });
+                      return res.send({"success":true, "login":'yes', "user_id":user_id});
+                  }
+                  else {
+                      res.send({"success":false, "login":'no'});
+                  }
+              })
+          }
+      }
+      else res.send({"success": false, "login":'no'});
     });
   });
 });
