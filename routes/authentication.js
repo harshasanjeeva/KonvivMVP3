@@ -65,12 +65,14 @@ app.post('/login', function(req, res) {
   console.log('---------------------- ', req.body)
   connection.connect(function(err) {
     var email = req.body.email;
-    var email = req.body.email;
     var password = req.body.password;
+    var user_id = req.body.user_id;
+
+    console.log("authentication.js login user id: ", user_id);
 
     console.log('here')
 
-    connection.query("SELECT * FROM UserTestTable WHERE username = ? ", [email], function(error, results, fields) {
+    connection.query("SELECT * FROM UserTable WHERE username = ? ", [email], function(error, results, fields) {
       console.log('and here')
       console.log('>>>>>>>>>>>>>>>> ', results)
       if (results[0].password) {

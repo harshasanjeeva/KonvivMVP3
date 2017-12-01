@@ -62,7 +62,7 @@ app.use(require('./routes/linkUserAccount'));
 // };
 
 
-var user_id = 10;
+// var user_id = 10;
 
 //working-------------------------------
 // PythonShell.run('bucket.py');
@@ -76,15 +76,15 @@ var user_id = 10;
 //     res.send(data.toString());
 //   });
 
-var options = {
-  args: ["hi",user_id]
-};
-
-PythonShell.run('bucket-new.py', options, function (err, results) {
-  //if (err) throw err;
-  // results is an array consisting of messages collected during execution
-  console.log('results: %j', results);
-});
+// var options = {
+//   args: ["hi",user_id]
+// };
+//
+// PythonShell.run('bucket-new.py', options, function (err, results) {
+//   //if (err) throw err;
+//   // results is an array consisting of messages collected during execution
+//   console.log('results: %j', results);
+// });
 
 
 

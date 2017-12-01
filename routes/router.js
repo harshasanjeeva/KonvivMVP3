@@ -43,7 +43,7 @@ app.post('/register', function(req, res){
 
                             var userData = [newUser];
                             var values = [];
-                            var user_id =5;
+                            var user_id = Math.floor(Math.random() * 10000);
                             for (var i = 0; i < 1; i++) {
                                 console.log(userData)
                                 values.push([user_id, userData[i].email, userData[i].password])
@@ -71,34 +71,34 @@ app.post('/register', function(req, res){
     });
 });
 
-app.post('/login', function(req, res, next) {
-    connection.connect(function(err) {
-        var email = req.body.email;
-        var password = req.body.password;
-
-        connection.query("SELECT * FROM UserTestTable WHERE username = ? ", [email], function(error, results, fields) {
-            console.log('>>>>>>>>>>>>>> ', results[0].password)
-            let username = results;
-            if( !username || username[0].username !== email || username === undefined || username === null ) {
-                res.send({"sucesss": false, "login": 'no'});
-            }
-            else if(results[0].username === email) {
-                console.log('>>>>>>>>>>> inside else if ', username)
-                let pass = results[0].password
-                if (pass !== undefined && pass !== null ) {
-                    bcrypt.compare(req.body.password, results[0].password, function(err, result) {
-                        if(result) {
-                            return res.send({"sucesss":true, "login":'yes'});
-                        }
-                        else {
-                            res.send({"sucesss": false, "login": 'no'});
-                        }
-                    })
-                }
-            }
-        });
-    });
-});
+// app.post('/login', function(req, res, next) {
+//     connection.connect(function(err) {
+//         var email = req.body.email;
+//         var password = req.body.password;
+//
+//         connection.query("SELECT * FROM UserTestTable WHERE username = ? ", [email], function(error, results, fields) {
+//             console.log('>>>>>>>>>>>>>> ', results[0].password)
+//             let username = results;
+//             if( !username || username[0].username !== email || username === undefined || username === null ) {
+//                 res.send({"sucesss": false, "login": 'no'});
+//             }
+//             else if(results[0].username === email) {
+//                 console.log('>>>>>>>>>>> inside else if ', username)
+//                 let pass = results[0].password
+//                 if (pass !== undefined && pass !== null ) {
+//                     bcrypt.compare(req.body.password, results[0].password, function(err, result) {
+//                         if(result) {
+//                             return res.send({"sucesss":true, "login":'yes'});
+//                         }
+//                         else {
+//                             res.send({"sucesss": false, "login": 'no'});
+//                         }
+//                     })
+//                 }
+//             }
+//         });
+//     });
+// });
 
   app.get('/accounts', function (req, res) {
     // res.status(200).send({"sucesss": true, "result": "hi"});
