@@ -21,31 +21,35 @@ conn = pymysql.connect(host="konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.co
 cur = db.cursor()
 
 
-
+user_id = sys.argv[2]
 
 # startingFunds = sys.argv[1]
 # startingFunds1 = float(sys.argv[2])
 
 
-f = open("test6.txt","r+");
-f.write("startingFunds");
-# f.write(startingFunds1);
-f.close();
 
 
 
 
 
 
+
+# user_id10 = 7411;
+# cur.execute("DELETE FROM bucketFillTest WHERE id = %(user_id1)")
+# user_id = 7170
+# user_id = 3029;
 
 
 # Use all the SQL you like
 cur.execute("SELECT * FROM transactionTable")
+sql = ''' DELETE FROM bucketFillTest WHERE id = {user_id10} '''.format(user_id10 = user_id)
+engine.execute(sql) 
+
 
 # print all the first cell of all the rows
 for row in cur.fetchall():
     print("the data - ",row[3] ,"-" , row[1],"-", row[2]," ", row[4]," ", row[0])
-user_id = sys.argv[2]
+
 df = pd.read_sql("SELECT * FROM transactionsTable WHERE user_id = %(user_id1)s",params={"user_id1":user_id }, con=db)
 #df = df.to_sql(name='SQL Table name',con=engine,if_exists='append',index=False) 
 
@@ -395,13 +399,13 @@ print("your income is good");
 
 data=[[2500,'Rent',200,100,1000,10]]
 df1_db = pd.DataFrame(data,columns=['Category','Amount','bucket','bucket_fill','rem_income','id']);
-
+print("Im here")
 # # print all the first cell of all the rows
 # for row in cur.fetchall():
 #     print("the data - ",row[3] ,"-" , row[1],"-", row[2]," ", row[4]," ", row[0])
 
 # df = pd.read_sql("SELECT * FROM transactionTable", con=db)
-result.to_sql(con=engine, name='bucketFillTest', if_exists='append',flavor=None, index=False, chunksize=10000)
+result.to_sql(con=engine, name='bucketFillTest', if_exists='replace',flavor=None, index=False, chunksize=10000)
 # df1_db.to_sql(con=conn, name='bucketFillTest', if_exists='replace', flavor='mysql', index=False, chunksize=10000)
 conn.close()
 db.close()

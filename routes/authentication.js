@@ -84,12 +84,13 @@ app.post('/login', function(req, res) {
              console.log('I am hereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ')
              // user_id= 4844;
              console.log('here')
+            // user_id= 3026;
              var options = {
                  args: ["hi",user_id]
              };
-             
-             PythonShell.run('bucket-new.py', options, function (err, results) {
-                 //if (err) throw err;
+             //PythonShell.run('bucket-new.py', options, function (err, results) {
+             PythonShell.run('./routes/bucket-new.py', options, function (err, results) {
+               // if (err) throw err;
                  // results is an array consisting of messages collected during execution
                  console.log('results: %j', results);
              });

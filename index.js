@@ -6,7 +6,6 @@ errorhandler = require('errorhandler'),
 bodyParser = require('body-parser'),
 helmet = require('helmet'),
 envvar = require('envvar'),
-PythonShell = require('python-shell'),
 plaid = require('plaid');
 
 const app = express();
@@ -90,8 +89,16 @@ app.use(require('./routes/linkUserAccount'));
 //   // results is an array consisting of messages collected during execution
 //   console.log('results: %j', results);
 // });
+// var user_id = 10;
+// var options = {
+//     args: ["hi",user_id]
+// };
 
-
+// PythonShell.run('test1.py', options, function (err, results) {
+//     if (err) throw err;
+//     // results is an array consisting of messages collected during execution
+//     console.log('results: %j', results);
+// });
 
 
 http.createServer(app).listen(port, function (err) {
