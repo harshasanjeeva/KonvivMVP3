@@ -78,6 +78,15 @@ app.get('/notifications/:user_id', function(req, res) {
         res.status(200).send({"success": true, "result": result});
     });
 });
+
+app.get('/spendtracker/:user_id', function(req, res) {
+    user_id = req.params.user_id;
+    connection.query("SELECT * FROM spendtrackertest WHERE id = ?", [user_id], function(err, result, fields) {
+        if (err) throw err;
+        res.status(200).send({"success": true, "result": result});
+    });
+});
+
 app.post('/notifications/:user_id', function(req, res) {
     user_id = req.params.user_id;
     var name = req.body.name;

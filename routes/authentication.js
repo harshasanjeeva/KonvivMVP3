@@ -82,7 +82,16 @@ app.post('/login', function(req, res) {
           if (pass !== undefined && pass !== null) {
               bcrypt.compare(req.body.password, results[0].password, function(err, result) {
                   if (result) {
+                      var username = email;
                       user_id = results[0].id;
+                      var values = [];
+                      for (var i = 0; i < 1; i++) {
+                        
+                        values.push([user_id, username])
+                    }
+                      connection.query("INSERT INTO Useridtest (user_id, username) VALUES ?", [values], function (err, result, fields) {
+                        if (err) throw err;
+                      });
                       var options = {
                         args: ["hi",user_id]
                     };
