@@ -20,7 +20,7 @@ conn = pymysql.connect(host="konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.co
 #  you execute all the queries you need
 cur = db.cursor()
 
-# user_id = 7177
+# user_id = 4295
 user_id = sys.argv[2]
 
 # startingFunds = sys.argv[1]
@@ -108,17 +108,21 @@ print(d4)
 
 
 
+
 print("Filtering for spend tracker")
 spendtrack = df_new[df_new.Time.dt.date > tday - pd.to_timedelta("8day")]
 print("Filtering the data using the 7 day rule");
 print(spendtrack);
-spendtrack.loc[:,'id'] = user_id
-spendtrack['Amount'] = spendtrack['Amount'].abs()
 
-print(spendtrack)
-sql1 = ''' DELETE FROM spendtrackertest WHERE id = {user_id10} '''.format(user_id10 = user_id)
-engine.execute(sql1) 
-spendtrack.to_sql(con=engine, name='spendtrackertest', if_exists='append',flavor=None, index=False, chunksize=10000)
+
+if not spendtrack.empty:
+    spendtrack.loc[:,'id'] = user_id
+    spendtrack['Amount'] = spendtrack['Amount'].abs()
+    sql1 = ''' DELETE FROM spendtrackertest WHERE id = {user_id10} '''.format(user_id10 = user_id)
+    engine.execute(sql1)
+    print(spendtrack)
+    
+    spendtrack.to_sql(con=engine, name='spendtrackertest', if_exists='append',flavor=None, index=False, chunksize=10000)
 
 d5 = df_new[df_new.Time.dt.date > tday - pd.to_timedelta("90day")]
 print("Filtering the data using the 90 day rule for calculating the bucket size");
