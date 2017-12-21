@@ -20,7 +20,7 @@ conn = pymysql.connect(host="konvivtest1.c0ebjxhggelq.us-east-2.rds.amazonaws.co
 #  you execute all the queries you need
 cur = db.cursor()
 
-# user_id = 4295
+# user_id = 4380
 user_id = sys.argv[2]
 
 # startingFunds = sys.argv[1]
@@ -317,7 +317,8 @@ goto(line)
 # Category for the Bills=======================================
 if line!=1:
     df_bills = df[df['Category'].str.contains("Bil")];
-    df_bills['Amount'] = df_bills['Amount'].fillna(0)
+    # df_bills['Amount'] = df_bills['Amount'].fillna(0);
+    df_bills.loc[:,'Amount'] = df_rent['rem_income'].iloc[0];
     df_bills.loc[:,'bucket'] = result_s.loc[4, 'Amount'];
     df_bills.loc[:,'bucket_fill'] = df_bills['bucket'];
     print(df_bills)
@@ -327,7 +328,16 @@ if line!=1:
         print(df_bills)
         line = 0
     else:
-        print("Your income is insufficient")
+        df_bills.loc[:,'bucket_fill'] = df_bills['Amount'];
+        df_bills.loc[:,'rem_income'] = 0
+        print("Your income is insufficient");
+        print(df_bills)
+        frames=[df_rent,df_bills]
+
+        result = pd.concat(frames);
+        result = result[['Category','Amount','bucket','bucket_fill','rem_income']]
+        result.loc[:,'id'] = user_id
+        print(result);
         line = 1
 goto(line)
         
@@ -468,12 +478,12 @@ if line==2:
 # Catching the result if the income is less 
 if line ==1:
     print("User has insufficient income")
+    print(result);
 
-result.to_csv('bucket1.csv', sep=',')
-print("your income is good");
+# result.to_csv('bucket1.csv', sep=',')
 
-data=[[2500,'Rent',200,100,1000,10]]
-df1_db = pd.DataFrame(data,columns=['Category','Amount','bucket','bucket_fill','rem_income','id']);
+
+# df1_db = pd.DataFrame(data,columns=['Category','Amount','bucket','bucket_fill','rem_income','id']);
 print("Im here")
 # # print all the first cell of all the rows
 # for row in cur.fetchall():
