@@ -7,7 +7,7 @@ var mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const tokenKey = require('../config/keys');
-
+const bucketIT = require('./buckets');
 
 var app = module.exports = express.Router();
 
@@ -71,6 +71,37 @@ app.get('/buckets/:user_id', function(req, res) {
         res.status(200).send({"success": true, "result": result});
     });
 });
+//???????????????????????????????????
+app.get('/buckets2/:user_id', function(req, res) {
+    user_id = req.params.user_id;
+    // console.log("node-new buckets user id: ", user_id);
+    trasactions = [];
+
+    connection.query("SELECT * FROM transactionsTable WHERE user_id = ?", [user_id], function(err, result, fields) {
+        if (err) throw err;
+
+        const bucket = new bucketIT(result, [
+            // {category: 'Transfer', target:1500.00, rank: 1},
+            {category: 'Service', target:1000.00, rank: 1},
+            {category: 'Payment', target:1000.00, rank: 1},
+            {category: 'other', target:1000.00, rank: 1},
+            {category: 'Bank Fees', target:1000.00, rank: 1},
+            {category: 'Shops', target:1000.00, rank: 1},
+          ])
+        // console.log("node-new buckets result: ", result); 
+        res.status(200).send({"success": true, "result": bucket.project(user_id)});
+    });
+    
+    console.log(bucketIT);
+});
+
+
+
+
+
+
+
+
 app.get('/notifications/:user_id', function(req, res) {
     user_id = req.params.user_id;
     connection.query("SELECT * FROM notificationsTable WHERE user_id = ?", [user_id], function(err, result, fields) {

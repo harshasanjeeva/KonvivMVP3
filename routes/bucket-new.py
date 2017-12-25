@@ -28,12 +28,6 @@ user_id = sys.argv[2]
 
 
 
-
-
-
-
-
-
 # user_id10 = 7411;
 # cur.execute("DELETE FROM bucketFillTest WHERE id = %(user_id1)")
 # user_id = 7170
